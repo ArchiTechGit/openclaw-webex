@@ -10,7 +10,13 @@ declare module "openclaw/plugin-sdk" {
   export interface OpenClawPluginApi {
     registerChannel(opts: { plugin: ChannelPlugin<unknown> }): void;
     registerGatewayMethod(name: string, handler: unknown): void;
-    registerHttpHandler(opts: unknown): void;
+    registerHttpRoute(params: {
+      path: string;
+      auth: "gateway" | "plugin";
+      match?: "exact" | "prefix";
+      replaceExisting?: boolean;
+      handler: (req: IncomingMessage, res: ServerResponse) => Promise<boolean | void> | boolean | void;
+    }): void;
     registerCli(callback: unknown, opts?: { commands: string[] }): void;
     registerService(service: unknown): void;
     logger: {

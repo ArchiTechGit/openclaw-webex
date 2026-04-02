@@ -30,3 +30,6 @@ npm-debug.log*
 
 # Test coverage
 coverage/
+
+# packacge-lock.json
+package-lock.json
