@@ -23,7 +23,7 @@
       ]
     },
     "install": {
-      "npmSpec": "@jimiford/channel-webex",
+      "npmSpec": "@jimiford/webex",
       "defaultChoice": "npm"
     }
   },
