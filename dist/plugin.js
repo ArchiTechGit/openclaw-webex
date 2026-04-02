@@ -1,0 +1,31 @@
+"use strict";
+/**
+ * OpenClaw Webex Channel Plugin
+ *
+ * Main entry point for the OpenClaw plugin system.
+ * Exports a default function that registers the Webex channel.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.id = void 0;
+exports.default = register;
+const channel_plugin_1 = require("./channel-plugin");
+/**
+ * OpenClaw plugin registration function.
+ *
+ * This is the entry point that OpenClaw calls when loading the plugin.
+ * It registers the Webex channel with the plugin system.
+ */
+function register(api) {
+    // Store the plugin runtime for use in HTTP handlers
+    (0, channel_plugin_1.setPluginRuntime)(api.runtime);
+    api.registerChannel({ plugin: channel_plugin_1.webexPlugin });
+    api.registerHttpRoute({
+        path: "/webhooks/webex",
+        auth: "plugin",
+        match: "prefix",
+        handler: (0, channel_plugin_1.createWebhookHandler)(),
+    });
+}
+// Export the plugin ID for reference
+exports.id = "webex";
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGx1Z2luLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vc3JjL3BsdWdpbi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQUE7Ozs7O0dBS0c7OztBQVdILDJCQVdDO0FBbkJELHFEQUF1RjtBQUV2Rjs7Ozs7R0FLRztBQUNILFNBQXdCLFFBQVEsQ0FBQyxHQUFzQjtJQUNyRCxvREFBb0Q7SUFDcEQsSUFBQSxpQ0FBZ0IsRUFBQyxHQUFHLENBQUMsT0FBTyxDQUFDLENBQUM7SUFFOUIsR0FBRyxDQUFDLGVBQWUsQ0FBQyxFQUFFLE1BQU0sRUFBRSw0QkFBVyxFQUFFLENBQUMsQ0FBQztJQUM3QyxHQUFHLENBQUMsaUJBQWlCLENBQUM7UUFDcEIsSUFBSSxFQUFFLGlCQUFpQjtRQUN2QixJQUFJLEVBQUUsUUFBUTtRQUNkLEtBQUssRUFBRSxRQUFRO1FBQ2YsT0FBTyxFQUFFLElBQUEscUNBQW9CLEdBQUU7S0FDaEMsQ0FBQyxDQUFDO0FBQ0wsQ0FBQztBQUVELHFDQUFxQztBQUN4QixRQUFBLEVBQUUsR0FBRyxPQUFPLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIE9wZW5DbGF3IFdlYmV4IENoYW5uZWwgUGx1Z2luXG4gKlxuICogTWFpbiBlbnRyeSBwb2ludCBmb3IgdGhlIE9wZW5DbGF3IHBsdWdpbiBzeXN0ZW0uXG4gKiBFeHBvcnRzIGEgZGVmYXVsdCBmdW5jdGlvbiB0aGF0IHJlZ2lzdGVycyB0aGUgV2ViZXggY2hhbm5lbC5cbiAqL1xuXG5pbXBvcnQgdHlwZSB7IE9wZW5DbGF3UGx1Z2luQXBpIH0gZnJvbSBcIm9wZW5jbGF3L3BsdWdpbi1zZGtcIjtcbmltcG9ydCB7IHdlYmV4UGx1Z2luLCBjcmVhdGVXZWJob29rSGFuZGxlciwgc2V0UGx1Z2luUnVudGltZSB9IGZyb20gXCIuL2NoYW5uZWwtcGx1Z2luXCI7XG5cbi8qKlxuICogT3BlbkNsYXcgcGx1Z2luIHJlZ2lzdHJhdGlvbiBmdW5jdGlvbi5cbiAqXG4gKiBUaGlzIGlzIHRoZSBlbnRyeSBwb2ludCB0aGF0IE9wZW5DbGF3IGNhbGxzIHdoZW4gbG9hZGluZyB0aGUgcGx1Z2luLlxuICogSXQgcmVnaXN0ZXJzIHRoZSBXZWJleCBjaGFubmVsIHdpdGggdGhlIHBsdWdpbiBzeXN0ZW0uXG4gKi9cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIHJlZ2lzdGVyKGFwaTogT3BlbkNsYXdQbHVnaW5BcGkpOiB2b2lkIHtcbiAgLy8gU3RvcmUgdGhlIHBsdWdpbiBydW50aW1lIGZvciB1c2UgaW4gSFRUUCBoYW5kbGVyc1xuICBzZXRQbHVnaW5SdW50aW1lKGFwaS5ydW50aW1lKTtcbiAgXG4gIGFwaS5yZWdpc3RlckNoYW5uZWwoeyBwbHVnaW46IHdlYmV4UGx1Z2luIH0pO1xuICBhcGkucmVnaXN0ZXJIdHRwUm91dGUoe1xuICAgIHBhdGg6IFwiL3dlYmhvb2tzL3dlYmV4XCIsXG4gICAgYXV0aDogXCJwbHVnaW5cIixcbiAgICBtYXRjaDogXCJwcmVmaXhcIixcbiAgICBoYW5kbGVyOiBjcmVhdGVXZWJob29rSGFuZGxlcigpLFxuICB9KTtcbn1cblxuLy8gRXhwb3J0IHRoZSBwbHVnaW4gSUQgZm9yIHJlZmVyZW5jZVxuZXhwb3J0IGNvbnN0IGlkID0gXCJ3ZWJleFwiO1xuIl19
