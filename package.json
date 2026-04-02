@@ -2,15 +2,10 @@
   "name": "@jimiford/webex",
   "version": "0.1.3",
   "description": "OpenClaw channel plugin for Cisco Webex messaging",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "openclaw.plugin.json"
-  ],
+  "type": "module",
   "openclaw": {
     "extensions": [
-      "./dist/plugin.js"
+      "./src/index.ts"
     ],
     "channel": {
       "id": "webex",
